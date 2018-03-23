@@ -1,0 +1,6 @@
+age,category,citizenship,company.name,company.type,country code,founded,from emerging,gdp,gender,industry,inherited,name,rank,region,relationship,sector,was founder,was political,wealth.type,worth in billions,year
+-1,Financial,Saudi Arabia,Rolaco Trading and Contracting Company,new,SAU,1968,TRUE,1.58E+11,male,Money Management,TRUE,Abdul Aziz Al-Sulaiman,404,Middle East/North Africa,founder,construction,TRUE,FALSE,self-made finance,1,1996
+34,Financial,United States,Fidelity Investments,new,USA,1946,TRUE,8.10E+12,female,Money Management,TRUE,Abigail Johnson,145,North America,relation,investment banking,TRUE,FALSE,inherited,2.5,1996
+59,Non-Traded Sectors,Brazil,Companhia Brasileira de Distribui?ao,new,BRA,1948,TRUE,8.54E+11,male,"Retail, Restaurant",TRUE,Abilio dos Santos Diniz,322,Latin America,relation,retail,TRUE,FALSE,inherited,1.2,1996
+61,New Sectors,Germany,Ratiopharm,new,DEU,1881,TRUE,2.50E+12,male,Technology-Medical,TRUE,Adolf Merckle,388,Europe,relation,pharmaceuticals,TRUE,FALSE,inherited,1,1996
+-1,Financial,Hong Kong,Swire,new,HKG,1816,TRUE,1.60E+11,male,Money Management,TRUE,Adrian and John Swire,162,East Asia,relation,trading company,TRUE,FALSE,inherited,2.2,1996

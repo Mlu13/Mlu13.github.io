@@ -1,0 +1,21 @@
+age,category,citizenship,company.name,company.type,country code,founded,from emerging,gdp,gender,industry,inherited,name,rank,region,relationship,sector,was founder,was political,wealth.type,worth in billions,year
+47,Non-Traded Sectors,United States,Walmart, new,USA,1962,TRUE,8.10E+12,female,"Retail, Restaurant",TRUE,Alice Walton,41,North America,relation,retail,TRUE,FALSE,inherited,4.7,1996
+66,Financial,Japan,Mori Building,new,JPN,1959,TRUE,4.71E+12,male,Real Estate,TRUE,Akira Mori,60,East Asia,relation,construction,TRUE,FALSE,inherited,3.9,1996
+-1,Traded Sectors,Netherlands,Heineken International,new,NLD,1864,TRUE,4.43E+11,female,Consumer,TRUE,Alfred Heineken,122,Europe,relation,beer,TRUE,FALSE,inherited,2.6,1996
+-1,Non-Traded Sectors,Mexico,Groupo IUSA,new,MEX,1939,TRUE,3.97E+11,male,Media,TRUE,Alejo Peralta,136,Latin America,relation,construction,TRUE,FALSE,inherited,2.5,1996
+34,Financial,United States,Fidelity Investments,new,USA,1946,TRUE,8.10E+12,female,Money Management,TRUE,Abigail Johnson,145,North America,relation,investment banking,TRUE,FALSE,inherited,2.5,1996
+-1,Traded Sectors,Japan,Sony,new,JPN,1946,TRUE,4.71E+12,male,Consumer,TRUE,Akio Morita,156,East Asia,founder,technology,TRUE,FALSE,founder non-finance,2.3,1996
+-1,Financial,Hong Kong,Swire,new,HKG,1816,TRUE,1.60E+11,male,Money Management,TRUE,Adrian and John Swire,162,East Asia,relation,trading company,TRUE,FALSE,inherited,2.2,1996
+40,New Sectors,Japan,Otsuka Holdings,new,JPN,1921,TRUE,4.71E+12,male,Technology-Medical,TRUE,Akihiko Otsuka,164,East Asia,relation,pharmaceuticals,TRUE,FALSE,inherited,2.2,1996
+-1,Traded Sectors,France,Chanel,new,FRA,1909,TRUE,1.61E+12,male,Consumer,TRUE,Alain Wertheimer,187,Europe,relation,luxury goods,TRUE,FALSE,inherited,2,1996
+-1,Financial,Germany,?Sal. Oppenheim,new,DEU,1789,TRUE,2.50E+12,male,Money Management,TRUE,Alfred von Oppenheim,190,Europe,relation,banking,TRUE,FALSE,inherited,2,1996
+63,Resource Related,Mexico,Penoles,privatization,MEX,1960,TRUE,3.97E+11,male,Mining and metals,TRUE,Alberto Bailleres Gonzalez,225,Latin America,relation,mining,TRUE,FALSE,inherited,1.8,1996
+12,Financial,Germany,von Thurn and Taxis family,new,DEU,1615,TRUE,2.50E+12,male,Money Management,TRUE,Albert von Thurn und Taxis,258,Europe,relation,"postal service, beverages",TRUE,FALSE,inherited,1.5,1996
+-1,Financial,Mexico,Pulsar International,new,MEX,1981,TRUE,3.97E+11,male,Money Management,TRUE,Alfonso Romo Garza,282,Latin America,founder,agriculture,TRUE,FALSE,self-made finance,1.4,1996
+50,0,United States,MBNA,subsidiary,USA,1982,TRUE,8.10E+12,male,Other,TRUE,Alfred Lerner,294,North America,chairman,credit cards,TRUE,FALSE,executive,1.4,1996
+59,Non-Traded Sectors,Brazil,Companhia Brasileira de Distribui?ao,new,BRA,1948,TRUE,8.54E+11,male,"Retail, Restaurant",TRUE,Abilio dos Santos Diniz,322,Latin America,relation,retail,TRUE,FALSE,inherited,1.2,1996
+-1,Traded Sectors,Ecuador,Exportadora Bananera Noboa,new,ECU,1946,TRUE,25200000000,male,Consumer,TRUE,Alvaro Noboa,325,Latin America,relation,banannas,TRUE,FALSE,inherited,1.2,1996
+-1,Traded Sectors,Bahrain,YBA Kanoo,new,BHR,1890,TRUE,6100000000,male,Consumer,TRUE,Ahmed Ali Kanoo,383,Middle East/North Africa,relation,shipping,TRUE,TRUE,inherited,1,1996
+61,New Sectors,Germany,Ratiopharm,new,DEU,1881,TRUE,2.50E+12,male,Technology-Medical,TRUE,Adolf Merckle,388,Europe,relation,pharmaceuticals,TRUE,FALSE,inherited,1,1996
+-1,Financial,Saudi Arabia,Rolaco Trading and Contracting Company,new,SAU,1968,TRUE,1.58E+11,male,Money Management,TRUE,Abdul Aziz Al-Sulaiman,404,Middle East/North Africa,founder,construction,TRUE,FALSE,self-made finance,1,1996
+-1,Non-Traded Sectors,Spain,Construcciones y Contratas,aquired,ESP,1952,TRUE,6.41E+11,female,Constrution,TRUE,Alicia and Esther Koplowitz,405,Europe,relation,construction,TRUE,FALSE,inherited,1,1996
