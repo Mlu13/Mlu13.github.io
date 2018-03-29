@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>D3: bar chart</title>
+		<script src="https://d3js.org/d3.v4.min.js"></script>
+		<style type="text/css">
+			.bar{fill: steelblue;}
+		</style>
+	</head>
+	<body>
+		<script type="text/javascript">
+			
+			var margin = {top: 20, right: 20, bottom: 110, left: 40},
+    			width = 960 - margin.left - margin.right,
+    			height = 800 - margin.top - margin.bottom;
+
+    		//create svg element
+			var svg = d3.select("body")
+						.append("svg")
+						.attr("width", width + margin.left + margin.right)
+						.attr("height", height + margin.top + margin.bottom)
+						.append("g")
+						.attr("transform", "translate(" + margin.left+"," + margin.top + ")");
+
+
+			//import data from .csv
+			
+			d3.csv("billionairesSubset.csv", function(data){
+
+				data.forEach(function(d){
+					d.name = d.name;
+					d.worth = +d.worth;
+				});	
+				console.log(data);
+
+				var xscale = d3.scaleBand()
+					.domain(data.map(function(d) {
+						return d.name; 
+					}))
+					.rangeRound([0,width])
+					.paddingInner(0.2);
+
+
+				var yscale = d3.scaleLinear()
+					.domain([0, d3.max(data, function(d){
+						return d.worth;
+					})])
+					.range([height,0]);
+
+				svg.selectAll(".bar")
+      				.data(data)
+    				.enter().append("rect")
+      				.attr("class", "bar")
+      				.attr("x", function(d) { return xscale(d.name); })
+      				.attr("width", xscale.bandwidth())
+      				.attr("y", function(d) { return yscale(d.worth); })
+      				.attr("height", function(d) { return height - yscale(d.worth); });
+
+      			// add the x Axis
+  				svg.append("g")
+      				.attr("transform", "translate(0," + height + ")")
+      				.call(d3.axisBottom(xscale))
+		 			.selectAll("text")	
+     				.style("text-anchor", "end")
+        			.attr("dx", ".8em")
+  					.style("font-size", "15px") 
+        			.attr("dy", ".75em")
+           			.attr("transform",  "rotate(-35)");
+  					// add the y Axis
+  				svg.append("g")
+      				.call(d3.axisLeft(yscale));
+
+      			svg.append("g")
+      				.selectAll("text")
+      				.data(data)
+      				.attr("class","bar")
+      				.enter()
+      				.append("text")
+      				.attr("x", function(d,i){
+      					return xscale(d.name)+9;
+      				 })
+				 	.attr("y",function(d){
+				 		return yscale(d.worth)+20;
+				 	})
+				 	.text(function(d){return d.worth;})
+				 	.attr("font-family", "sans-serif")
+   					.attr("font-size", "15px")
+   					.attr("fill", "white");
+   				// label y axis
+   				svg.append("g")
+   					.append("text")
+      				.attr("transform", "rotate(-90)")
+      				.attr("y", 0 - margin.left)
+      				.attr("x",0 - (height / 2))
+      				.attr("dy", "1em")
+      				.style("text-anchor", "middle")
+      				.text("Worth in billions");  
+      			// label x axis
+      			svg.append("g")
+      				.append("text")             
+      				.attr("transform",
+            			"translate(" + (width/2) + " ," + 
+                           (height + margin.top + 85) + ")")
+     				.style("text-anchor", "middle")
+      				.text("Name");
+
+
+
+
+	
+
+				
+			});
+
+			
+			
+			
+
+			
+
+
+
+		</script>
+	</body>
+<html>

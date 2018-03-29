@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>D3: scatterplot matrix</title>
+		<script src="https://d3js.org/d3.v4.min.js"></script>
+		<style type="text/css"></style>
+	</head>
+	<body>
+		<script type="text/javascript">
+		var padding = 18;
+
+			// var w = 960;
+			// var h = 800;
+
+			
+			var margin = {top: 5, right:80, bottom: 90, left: 40}, 
+				width = 960 - margin.left - margin.right,
+      			height = 900 - margin.top - margin.bottom;
+
+      		var w1 = width/3,
+      			w2 = width*2/3;
+      			w3 = width;
+
+      		var h1 = height/3,
+      			h2 = height*2/3,
+      			h3 = height;
+
+    	     var svg = d3.select("body")
+						.append("svg")
+						.attr('width', width + margin.right + margin.left)
+						.attr('height', height + margin.top + margin.bottom)
+						.append("g")
+						.attr("transform", "translate(" + margin.left+"," + margin.top + ")");
+						// .attr('class', 'chart')
+
+
+
+			d3.csv("matrixData.csv", function(data){
+
+				data.forEach(function(d){
+					d.rank = +d.rank;
+					d.worth = +d.worth;
+					d.gdp = +d.gdp/100000000000;
+				});	
+				console.log(data);
+
+      			// 1st column - garph 1
+				//****************************************
+				var xscaleWorth = d3.scaleLinear()
+					.domain([0,d3.max(data,function(d){
+						return d.worth;
+					})])
+					.range([0,w1]);
+
+				var yscaleWorth = d3.scaleLinear()
+					.domain([0, d3.max(data, function(d){
+						return d.worth;
+					})])
+					.range([h1,0]);
+				
+				
+				//axis for graph1
+    	      	svg.append("g")
+      				.attr("transform", "translate(0," + h1 + ")") 
+      				.call(d3.axisBottom(xscaleWorth))
+
+  				svg.append("g")
+      				.call(d3.axisLeft(yscaleWorth));
+
+				svg.selectAll("circle1")
+					.data(data)
+					.enter()
+					.append("circle")
+					.attr("cx", function(d){
+						return xscaleWorth(d.worth);
+					})
+					.attr("cy", function(d){
+						return yscaleWorth(d.worth);
+					})
+					.attr("r", 3)
+					.attr("fill", "steelBlue");
+
+		//1st column-graph2
+				var h2x = h2 + padding
+				var h1x = h1 + padding
+				
+				var xscaleWorth = d3.scaleLinear()
+					.domain([0,d3.max(data,function(d){
+						return d.worth;
+					})])
+					.range([0,w1]);
+
+				var yscaleRank = d3.scaleLinear()
+					.domain([0, d3.max(data, function(d){
+						return d.rank;
+					})])
+					.range([h2x,h1x]);
+
+    	      	svg.append("g")
+      				.attr("transform", "translate(0," + h2x + ")") 
+      				.call(d3.axisBottom(xscaleWorth))
+		 			.selectAll("text")	
+    
+  				
+  				svg.append("g")
+  					 .attr("transform", "translate(" + 0 + "," + 0 + ")")
+      				.call(d3.axisLeft(yscaleRank));
+
+      			svg.selectAll("circle2")
+					.data(data)
+					.enter()
+					.append("circle")
+					.attr("cx", function(d){
+						return xscaleWorth(d.worth);
+					})
+					.attr("cy", function(d){
+						return yscaleRank(d.rank);
+					})
+					.attr("r", 3)
+					.attr("fill", "steelBlue");
+
+			//*****************************************************************
+			//1st column- graph3
+				var h3x = h3 + padding;
+				var h3y = h3x + 5;
+				var h2y = h2 + padding*2;
+				
+				var xscaleWorth = d3.scaleLinear()
+					.domain([0,d3.max(data,function(d){
+						return d.worth;
+					})])
+					.range([0,w1]);
+
+				var yscaleGDP = d3.scaleLinear()
+					.domain([0, d3.max(data, function(d){
+						return d.gdp;
+					})])
+					.range([h3y,h2y]);
+
+				
+    	      	//x-axis
+    	      	svg.append("g")
+      				.attr("transform", "translate(0," + h3y + ")") 
+      				.call(d3.axisBottom(xscaleWorth))
+		 			
+    
+  				//y-axis
+  				svg.append("g")
+  					 .attr("transform", "translate(" + 0 + "," + 0 + ")")
+      				.call(d3.axisLeft(yscaleGDP));
+
+      			svg.selectAll("circle3")
+					.data(data)
+					.enter()
+					.append("circle")
+					.attr("cx", function(d){
+						console.log(xscaleWorth(d.worth));
+						return xscaleWorth(d.worth);
+					})
+					.attr("cy", function(d){
+						
+						return yscaleGDP(d.gdp);
+					})
+					.attr("r", 3)
+					.attr("fill", "steelBlue");
+
+				//***********************************************************
+				//2nd column - graph 1
+				var w1x = w1+padding;
+				var xscaleRank = d3.scaleLinear()
+					.domain([0,d3.max(data,function(d){
+						return d.rank;
+					})])
+					.range([w1+padding,w2]);
+
+				var yscaleWorth = d3.scaleLinear()
+					.domain([0, d3.max(data, function(d){
+						console.log(d.worth)
+						return d.worth;
+					})])
+					.range([h1,0]);
+	
+    	      	svg.append("g")
+      				.attr("transform", "translate(0," + h1 + ")") 
+      				.call(d3.axisBottom(xscaleRank))
+
+  				svg.append("g")
+  					.attr("transform", "translate(" + w1x + "," + 0 + ")")
+      				.call(d3.axisLeft(yscaleWorth));
+
+				svg.selectAll("circle4")
+					.data(data)
+					.enter()
+					.append("circle")
+					.attr("cx", function(d){
+						return xscaleRank(d.rank);
+					})
+					.attr("cy", function(d){
+						return yscaleWorth(d.worth);
+					})
+					.attr("r", 3)
+					.attr("fill", "steelBlue");
+
+
+//*************************************************************************
+				//2nd column - graph2
+				var h2x = h2 + padding
+				var h1x = h1 + padding
+				
+				var xscaleRank = d3.scaleLinear()
+					.domain([0,d3.max(data,function(d){
+						return d.rank;
+					})])
+					.range([w1x,w2]);
+
+				var yscaleRank = d3.scaleLinear()
+					.domain([0, d3.max(data, function(d){
+						return d.rank;
+					})])
+					.range([h2x,h1x]);
+
+				
+    	      	
+    	      	svg.append("g")
+      				.attr("transform", "translate(0," + h2x + ")") 
+      				.call(d3.axisBottom(xscaleRank))
+		 			.selectAll("text")	
+    
+  				
+  				svg.append("g")
+  					 .attr("transform", "translate(" + w1x + "," + 0 + ")")
+      				.call(d3.axisLeft(yscaleRank));
+
+      			svg.selectAll("circle5")
+					.data(data)
+					.enter()
+					.append("circle")
+					.attr("cx", function(d){
+						return xscaleRank(d.rank);
+					})
+					.attr("cy", function(d){
+						return yscaleRank(d.rank);
+					})
+					.attr("r", 3)
+					.attr("fill", "steelBlue");
+				//******************************************************************
+				//2nd column - graph3
+				var h2x = h2 + padding*2;
+				var h3x = h3 + padding*2;
+				
+				var xscaleRank = d3.scaleLinear()
+					.domain([0,d3.max(data,function(d){
+						return d.rank;
+					})])
+					.range([w1x,w2]);
+
+				var yscaleGDP = d3.scaleLinear()
+					.domain([0, d3.max(data, function(d){
+						return d.gdp;
+					})])
+					.range([h3x,h2x]);
+
+				
+    	      	
+    	      	svg.append("g")
+      				.attr("transform", "translate(0," + h3x + ")") 
+      				.call(d3.axisBottom(xscaleRank))
+		 			.selectAll("text")	
+    
+  				
+  				svg.append("g")
+  					 .attr("transform", "translate(" + w1x + "," + 0 + ")")
+      				.call(d3.axisLeft(yscaleGDP));
+
+      			svg.selectAll("circle5")
+					.data(data)
+					.enter()
+					.append("circle")
+					.attr("cx", function(d){
+						return xscaleRank(d.rank);
+					})
+					.attr("cy", function(d){
+						return yscaleGDP(d.gdp);
+					})
+					.attr("r", 3)
+					.attr("fill", "steelBlue");
+				
+				//*********************************************************************
+				//3rd column - 1st graph
+				var w2x = w2+padding;
+				var w3x = w3+padding;
+
+				var xscaleGDP = d3.scaleLinear()
+					.domain([0,d3.max(data,function(d){
+						return d.gdp;
+					})])
+					.range([w2x,w3x]);
+
+				var yscaleWorth = d3.scaleLinear()
+					.domain([0, d3.max(data, function(d){
+						return d.worth;
+					})])
+					.range([h1,0]);
+				
+			
+    	      	svg.append("g")
+      				.attr("transform", "translate(0," + h1 + ")") 
+      				.call(d3.axisBottom(xscaleGDP))
+
+  				svg.append("g")
+  					.attr("transform", "translate(" + w2x + "," + 0 + ")")
+      				.call(d3.axisLeft(yscaleWorth));
+
+				svg.selectAll("circle1")
+					.data(data)
+					.enter()
+					.append("circle")
+					.attr("cx", function(d){
+						return xscaleGDP(d.gdp);
+					})
+					.attr("cy", function(d){
+						return yscaleWorth(d.worth);
+					})
+					.attr("r", 3)
+					.attr("fill", "steelBlue");
+
+				//*************************************************************************
+				//3rd column - 2nd graph
+				var h2x = h2 + padding
+				var h1x = h1 + padding
+				var w2x = w2+padding;
+				var w3x = w3+padding;
+				
+				var xscaleGDP = d3.scaleLinear()
+					.domain([0,d3.max(data,function(d){
+						return d.gdp;
+					})])
+					.range([w2x,w3x]);
+
+				var yscaleRank = d3.scaleLinear()
+					.domain([0, d3.max(data, function(d){
+						return d.rank;
+					})])
+					.range([h2x,h1x]);
+
+				
+    	      	
+    	      	svg.append("g")
+      				.attr("transform", "translate(0," + h2x + ")") 
+      				.call(d3.axisBottom(xscaleGDP))
+		 			.selectAll("text")	
+    
+  				
+  				svg.append("g")
+  					 .attr("transform", "translate(" + w2x + "," + 0 + ")")
+      				.call(d3.axisLeft(yscaleRank));
+
+      			svg.selectAll("circle5")
+					.data(data)
+					.enter()
+					.append("circle")
+					.attr("cx", function(d){
+						return xscaleGDP(d.gdp);
+					})
+					.attr("cy", function(d){
+						return yscaleRank(d.rank);
+					})
+					.attr("r", 3)
+					.attr("fill", "steelBlue");
+					//*********************************************************
+					//3rd column 3rd graph
+					var h2x = h2 + padding*2;
+					var h3x = h3 + padding*2;
+					var w2x = w2+padding;
+					var w3x = w3+padding;
+					var h3y = h3+padding*2;
+				
+					var xscaleGDP = d3.scaleLinear()
+						.domain([0,d3.max(data,function(d){
+							return d.gdp;
+						})])
+						.range([w2x,w3x]);
+
+					var yscaleGDP = d3.scaleLinear()
+						.domain([0, d3.max(data, function(d){
+							return d.gdp;
+						})])
+						.range([h3x,h2x]);
+
+				
+    	      	
+    	      		svg.append("g")
+      				.attr("transform", "translate(" + w2x + "," + h3y + ")") 
+      				.call(d3.axisBottom(xscaleWorth))
+    
+  				
+	  				svg.append("g")
+  					 .attr("transform", "translate(" + w2x + "," + 0 + ")")
+      				.call(d3.axisLeft(yscaleGDP));
+
+      				svg.selectAll("circle5")
+						.data(data)
+						.enter()
+						.append("circle")
+						.attr("cx", function(d){
+							return xscaleGDP(d.gdp);
+						})
+						.attr("cy", function(d){
+							return yscaleGDP(d.gdp);
+						})
+						.attr("r", 3)
+						.attr("fill", "steelBlue");
+
+					// svg.append("g")
+						svg.append("text")
+						.attr("x", 100)
+						.attr("y", 10)
+						.text
+						("Worth");
+
+						svg.append("text")
+						.attr("x", 400)
+						.attr("y", 10)
+						.text
+						("Rank");
+
+						svg.append("text")
+						.attr("x", 700)
+						.attr("y", 10)
+						.text
+						("GDP");
+
+						svg.append("text")
+						.attr("x", 10)
+						.attr("y", 300)
+						.text
+						("Rank");
+
+						svg.append("text")
+						.attr("x", 10)
+						.attr("y", 590)
+						.text
+						("GDP");
+				
+
+
+			});
+		</script>
+	</body>
+</html>
+

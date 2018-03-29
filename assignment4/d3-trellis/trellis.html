@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>D3: trellis scatterplot</title>
+		<script src="https://d3js.org/d3.v4.min.js"></script>
+		<style type="text/css"></style>
+	</head>
+	<body>
+		<script type="text/javascript">
+
+			// var w = 960;
+			// var h = 800;
+			var padding = 30;
+
+			var margin = {top: 20, right:15, bottom: 40, left: 30}, 
+				widthTotal = 1200 - margin.left - margin.right,
+      			heightTotal = 300 - margin.top - margin.bottom;
+
+      		var	w1 = widthTotal*1/3;
+      		var	w2 = widthTotal*2/3;
+      		var	w3 = widthTotal;
+
+      		var	height = heightTotal;
+
+
+			d3.csv("trellisdata.csv", function(data){
+
+				data.forEach(function(d){
+					d.rank = +d.rank;
+					d.worth = +d.worth;
+					d.year = +d.year
+				});	
+				
+
+				var data2 = data; 
+				var data3 = data;
+
+				var base = d3.select("body").append("svg")
+					.attr("width", 1500)
+					.attr("height", 350)
+				
+
+				var chart1 = base.append("svg")
+					.attr('width', w1 + margin.right + margin.left)
+					.attr('height', height + margin.top + margin.bottom)
+					.attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+					.append("g")
+					.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+				var xscale1 = d3.scaleLinear()
+					.domain([0,d3.max(data,function(d){
+						if(d.year == 1996)
+							return d.rank;
+					})])
+					.range([0,w1]);
+					
+
+
+				var yscale1 = d3.scaleLinear()
+					.domain([0, d3.max(data, function(d){
+						if(d.year == 1996)
+							return d.worth;
+					})])
+					.range([height,0]);
+
+				chart1.append("g")
+      				.attr("transform", "translate(0," + height + ")") 
+      				.call(d3.axisBottom(xscale1))
+		 			.selectAll("text")	
+     				.style("text-anchor", "end")
+        			.attr("dx", ".8em")
+  					.style("font-size", "15px") 
+        			.attr("dy", ".75em")
+           			.attr("transform",  "rotate(0)")
+           			.append("text")
+           			
+  					// add the y Axis
+  				chart1.append("g")
+      				.call(d3.axisLeft(yscale1));
+      			//label x
+      			chart1.append("text")
+      				  .attr("x", 200)
+      				  .attr("y", 280)
+      				  .text('rank');
+      			//label y
+      			chart1.append("text")
+      				  .attr("x", -20)
+      				  .attr("y", -10)
+      				  .text('worth')
+
+      			//label year
+      			chart1.append("text")
+      				  .attr("x", 180)
+      				  .attr("y", 5)
+      				  .text('year: 1996')
+
+      				  
+
+      			chart1.selectAll("circle")
+      				.data(data)
+      				.enter()
+      				.append("circle")
+      				.filter(function(d){ return d.year == 1996; })
+      				.attr("cx", function(d){
+      					console.log(xscale1(d.rank));
+						return xscale1(d.rank);
+					})
+      				.attr("cy", function(d){
+						return yscale1(d.worth);
+					})
+      				.attr("r", 5)
+      				.attr("fill", "none")
+      				.attr("stroke","blue");
+  
+      			
+//****************************************************************************
+      			var chart2 = base.append("svg")
+					.attr('width', w1 + margin.right + margin.left)
+					.attr('height', height + margin.top + margin.bottom)
+					.attr("transform", "translate(" + (margin.left+ w1 + padding) +"," + margin.top + ")")
+					.append("g")
+					.attr("transform", "translate(" + margin.left + "," + margin.top + ")");;
+
+				var xscale2 = d3.scaleLinear()
+					.domain([0,d3.max(data2,function(d){
+						if(d.year == 2001)
+							return d.rank;
+					})])
+					.range([0,w1]);
+					
+
+
+				var yscale2 = d3.scaleLinear()
+					.domain([0, d3.max(data2, function(d){
+						if(d.year == 2001)
+							return d.worth;
+					})])
+					.range([height,0]);
+
+				chart2.append("g")
+      				.attr("transform", "translate(0," + height + ")") 
+      				.call(d3.axisBottom(xscale2))
+		 			.selectAll("text")	
+     				.style("text-anchor", "end")
+        			.attr("dx", ".8em")
+  					.style("font-size", "15px") 
+        			.attr("dy", ".75em")
+           			.attr("transform",  "rotate(0)");
+  					// add the y Axis
+  				chart2.append("g")
+      				.call(d3.axisLeft(yscale2));
+      			//label x
+      			chart2.append("text")
+      				  .attr("x", 200)
+      				  .attr("y", 280)
+      				  .text('rank');
+      			//label y
+      			chart2.append("text")
+      				  .attr("x", -20)
+      				  .attr("y", -10)
+      				  .text('worth')
+
+      			//label year
+      			chart2.append("text")
+      				  .attr("x", 180)
+      				  .attr("y", 5)
+      				  .text('year: 2001')
+
+      				  
+
+      			chart2.selectAll("circle")
+      				.data(data2)
+      				.enter()
+      				.append("circle")
+      				.filter(function(d){ return d.year == 2001; })
+      				.attr("cx", function(d){
+      					console.log(xscale2(d.rank));
+						return xscale2(d.rank);
+					})
+      				.attr("cy", function(d){
+						return yscale2(d.worth);
+					})
+      				.attr("r", 5)
+      				.attr("fill", "none")
+      				.attr("stroke","black");
+
+
+//***********************************************************************
+				//chart 3
+				var chart3 = base.append("svg")
+					.attr('width', w1 + margin.right + margin.left)
+					.attr('height', height + margin.top + margin.bottom)
+					.attr("transform", "translate(" + (margin.left+ w1*2 + padding*2) + "," + margin.top + ")")
+					.append("g")
+					.attr("transform", "translate(" + margin.left + "," + margin.top + ")");;
+
+				var xscale3 = d3.scaleLinear()
+					.domain([0,d3.max(data3,function(d){
+						if(d.year == 2014)
+							return d.rank;
+					})])
+					.range([0,w1]);
+					
+
+
+				var yscale3 = d3.scaleLinear()
+					.domain([0, d3.max(data3, function(d){
+						if(d.year == 2014)
+							return d.worth;
+					})])
+					.range([height,0]);
+
+				chart3.append("g")
+      				.attr("transform", "translate(0," + height + ")") 
+      				.call(d3.axisBottom(xscale3))
+		 			.selectAll("text")	
+     				.style("text-anchor", "end")
+        			.attr("dx", ".8em")
+  					.style("font-size", "15px") 
+        			.attr("dy", ".75em")
+           			.attr("transform",  "rotate(0)");
+  					// add the y Axis
+  				chart3.append("g")
+      				.call(d3.axisLeft(yscale3));
+      			//label x
+      			chart3.append("text")
+      				  .attr("x", 200)
+      				  .attr("y", 280)
+      				  .text('rank');
+      			//label y
+      			chart3.append("text")
+      				  .attr("x", -20)
+      				  .attr("y", -10)
+      				  .text('worth')
+
+      			//label year
+      			chart3.append("text")
+      				  .attr("x", 180)
+      				  .attr("y", 5)
+      				  .text('year: 2014')
+
+      			chart3.selectAll("circle")
+      				.data(data3)
+      				.enter()
+      				.append("circle")
+      				.filter(function(d){ return d.year == 2014; })
+      				.attr("cx", function(d){
+      					console.log(xscale3(d.rank));
+						return xscale3(d.rank);
+					})
+      				.attr("cy", function(d){
+						return yscale3(d.worth);
+					})
+      				.attr("r", 5)
+      				.attr("fill", "none")
+      				.attr("stroke","red");
+
+
+				 
+			});
+		</script>
+	</body>
+</html>
+
