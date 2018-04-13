@@ -114,6 +114,7 @@ d3.tsv("data.tsv", type, function(error, data) {
 
   city.append("path")
       .attr("class", "line")
+      .attr("clip-path", "url(#clip)")
       .attr("id", function(d) { return d.id.substring(0, 3).toUpperCase()})
       .attr("d", function(d) { return line(d.values); })
       .style("stroke", function(d) { return z(d.id); });
